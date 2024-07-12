@@ -52,3 +52,25 @@ Start the Django development server:
 ```bash
 python manage.py runserver
 ```
+
+**Docker Deployment**
+You can also deploy the project using Docker and docker-compose with Nginx. Follow the steps below:
+
+Build and start the containers:
+
+```bash
+docker compose up --build
+```
+
+The application should now be running and accessible at http://localhost.
+
+### Configuration
+
+**Database Settings**
+Ensure you have set up your database configurations in the settings.py and .env file for Cockroachlabs and Astra Cassandra.
+
+**Redis Configuration**
+Configure Redis in your settings.py and .env file to use Upstash.
+
+**Cloudflare R2 Configuration**
+Set up Cloudflare R2 for storage in your settings.py and .env file.
