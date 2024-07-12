@@ -1,0 +1,36 @@
+<!-- templates/admin/chapter_change.html -->
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static %}
+
+{% block content %}
+  <h1>{% trans "Change chapter" %}</h1>
+  <form method="post" class="chapter-form">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit" class="default">{% trans "Save" %}</button>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const bookSelect = document.getElementById('id_book_id');
+      const volumeSelect = document.getElementById('id_volume_id');
+
+      bookSelect.addEventListener('change', function () {
+        const bookId = this.value;
+        fetch(`/admin/api/chapter/ajax/load-volumes/?book_id=${bookId}`)
+          .then(response => response.json())
+          .then(data => {
+            volumeSelect.innerHTML = '';
+            data.forEach(volume => {
+              const option = document.createElement('option');
+              option.value = volume.id;
+              option.textContent = volume.name;
+              volumeSelect.appendChild(option);
+            });
+          });
+      });
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,17 @@
+django
+djangorestframework
+markdown
+django-filter
+psycopg2-binary
+django-cors-headers
+djangorestframework-simplejwt
+Pillow
+boto3
+django-redis
+redis
+django-cockroachdb
+django-storages
+cassandra-driver
+django-cassandra-engine
+python-decouple
+gunicorn

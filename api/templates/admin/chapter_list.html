@@ -1,0 +1,46 @@
+<!-- templates/admin/chapter_list.html -->
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static %}
+
+{% block content %}
+  <div class="app-chapter module">
+    <h1>{% trans "Select chapter to change" %}</h1>
+    <div id="content-main">
+      <div class="object-tools">
+        <a href="{% url 'admin:chapter_add' %}" class="addlink">{% trans "Add new chapter" %}</a>
+      </div>
+      <form method="get">
+        <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
+        <button type="submit">{% trans "Search" %}</button>
+      </form>
+      <form method="post" action="{% url 'admin:chapter_delete_selected' %}">
+        {% csrf_token %}
+        <button type="submit">{% trans "Delete selected chapters" %}</button>
+        <table id="result_list">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="action-toggle"></th>
+              <th>{% trans "Name" %}</th>
+              <th>{% trans "Book ID" %}</th>
+              <th>{% trans "Volume ID" %}</th>
+              <th>{% trans "Date Created" %}</th>
+              <th>{% trans "Date Updated" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for chapter in chapters %}
+            <tr>
+              <td><input type="checkbox" name="_selected_action" value="{{ chapter.id }}"></td>
+              <td><a href="{% url 'admin:chapter_change' chapter.id %}">{{ chapter.name }}</a></td>
+              <td>{{ chapter.book_id }}</td>
+              <td>{{ chapter.volume_id }}</td>
+              <td>{{ chapter.date_created }}</td>
+              <td>{{ chapter.date_updated }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+{% endblock %}
